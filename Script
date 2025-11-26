@@ -1,0 +1,108 @@
+-- Load HOHO library
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/hoho_lib.lua", true))()
+
+-- Create main window
+local win = lib:Window("Xeon","Xeon Development",Color3.new(0.333333, 0.666667, 1))
+
+-- ===== GET ITEMS TAB =====
+local tabItems = win:Tab("Get Items")
+
+local function addToolButton(name, toolName)
+    tabItems:Line()
+    tabItems:Button(name, function()
+        game.ReplicatedStorage.RemoteEvents.GiveTool:FireServer(toolName)
+    end)
+end
+
+-- Add all items
+addToolButton("Get Chips", "Chips")
+addToolButton("Get Cola", "BloxyCola")
+addToolButton("Get Apple", "Apple")
+addToolButton("Get Pizza", "Pizza3")
+addToolButton("Get Cookie", "Cookie")
+addToolButton("Get Medkit", "MedKit")
+addToolButton("Get Cure", "Cure")
+addToolButton("Get Bat (Weapon)", "Bat")
+addToolButton("Get Teddy", "TeddyBloxpin")
+addToolButton("Get Sword", "LinkedSword")
+addToolButton("Get Lollipop", "Lollipop")
+addToolButton("Get Key", "Key")
+addToolButton("Get Planks", "Plank")
+
+-- Hammer uses a different RemoteEvent
+tabItems:Line()
+tabItems:Button("Get Hammer", function()
+    game.ReplicatedStorage.RemoteEvents.BasementWeapon:FireServer(true, "Hammer")
+end)
+
+-- ===== ROLE TAB =====
+local tabRole = win:Tab("Roles")
+tabRole:Line()
+tabRole:Button("Police", function()
+    game.ReplicatedStorage.RemoteEvents.OutsideRole:FireServer("Gun", true)
+end)
+tabRole:Line()
+tabRole:Button("Swat", function()
+    game.ReplicatedStorage.RemoteEvents.OutsideRole:FireServer("SwatGun", true)
+end)
+
+-- ===== TELEPORT TAB =====
+local tabTP = win:Tab("Teleport")
+
+local function addTPButton(name, cframe)
+    tabTP:Line()
+    tabTP:Button(name, function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cframe
+    end)
+end
+
+addTPButton("Basement", CFrame.new(71, -15, -163))
+addTPButton("House", CFrame.new(-36, 3, -200))
+addTPButton("Hiding Spot", CFrame.new(-42.87, 6.43, -222.01))
+addTPButton("Attic", CFrame.new(-16, 35, -220))
+addTPButton("Store", CFrame.new(-422, 3, -121))
+addTPButton("Sewer", CFrame.new(129, 3, -125))
+addTPButton("Boss Room", CFrame.new(-39, -287, -1480))
+
+-- ===== MISC TAB =====
+local tabMisc = win:Tab("Misc")
+
+tabMisc:Line()
+tabMisc:Button("Kill Enemies", function()
+    for _, enemy in pairs(game.Workspace.BadGuys:GetChildren()) do
+        for i = 1, 50 do
+            game.ReplicatedStorage.RemoteEvents.HitBadguy:FireServer(enemy, 10)
+            game.ReplicatedStorage.RemoteEvents.HitBadguy:FireServer(enemy, 996)
+            game.ReplicatedStorage.RemoteEvents.HitBadguy:FireServer(enemy, 9)
+            game.ReplicatedStorage.RemoteEvents.HitBadguy:FireServer(enemy, 8)
+        end
+    end
+end)
+
+tabMisc:Line()
+tabMisc:Button("Open Safe", function()
+    game.ReplicatedStorage.RemoteEvents.Safe:FireServer(game.Workspace.CodeNote.SurfaceGui.TextLabel.Text)
+end)
+
+tabMisc:Line()
+tabMisc:Button("Heal Instantly", function()
+    for i = 1, 200 do
+        wait(0.005)
+        game.ReplicatedStorage.RemoteEvents.Energy:FireServer("Cat")
+    end
+end)
+
+tabMisc:Line()
+tabMisc:Button("Be Friends with Cat", function()
+    game.ReplicatedStorage.RemoteEvents.Cattery:FireServer()
+end)
+
+tabMisc:Line()
+tabMisc:Button("Drop Tool", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/ZYXmS4Sb"))()
+end)
+
+tabMisc:Line()
+tabMisc:Button("Fly GUI", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Pro69Yes/sussy-Script/main/SecuredFlyGuiv3.lua'))()
+end)
